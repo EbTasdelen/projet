@@ -1,0 +1,12 @@
+[
+  
+  {
+    "_class": "com.isika.al5.projet.service.entity.User",
+    "username": "testUser",
+    "name": "user",
+    "surname": "user",
+    "email": "test@test.fr",
+    "password":"user" 
+}
+
+]
