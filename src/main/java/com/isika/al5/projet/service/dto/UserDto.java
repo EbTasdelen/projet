@@ -1,8 +1,6 @@
 package com.isika.al5.projet.service.dto;
 
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
