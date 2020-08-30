@@ -23,8 +23,10 @@ import com.isika.al5.projet.service.service.imp.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true) // permet de proteger les methodes (il faut l'activer) 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -41,22 +43,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
        auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+       //auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+       
    }
 
     @Bean
     public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
         return new JwtAuthenticationFilter();
     }
+    
+    
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().
+        http.cors().and().csrf().disable().// ne pas utiliser le jeton d'authetification (session id) 
                 authorizeRequests()
+                // mettre la page visiteur /product
                 .antMatchers("/api/token/register", "/api/token").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                
         http
                 .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
     }

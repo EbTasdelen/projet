@@ -1,0 +1,82 @@
+  <div class="content-wrapper">
+    <ngx-datatable
+    class="bootstrap"
+    [rows]="rows"
+    [columns]="colonnes"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [externalPaging]="true"
+    [count]="page.totalElements"
+    [offset]="page.page"
+    [limit]="page.size"
+    (page)='setPage($event)'>
+  </ngx-datatable>
+
+  <ng-template #tplProjectDeleteCell let-row="row" let-value="value">
+    <button (click)="showProjectDeleteConf(value)"><i class="material-icons">delete</i></button>
+  </ng-template>
+
+   <div>
+  <button type="button" class="btn btn-primary" (click)="openModal(template)">Créer un project</button>
+
+</div>
+
+<!--Boite de dialogue-->
+<ng-template #template>
+
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Projets</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+  <div class="modal-body">
+    <form [formGroup]="projectForm" (ngSubmit)="saveProject()">
+
+
+<div class="form-group">
+  <label>Code du Project</label>
+  <input type="text" formControlName="projectCode" class="form-control" [ngClass]="{'is-invalid' :fo.projectCode.errors}"/>
+  <div *ngIf= "fo.projectCode.errors" class="invalid-feedback">
+  <div *ngIf= "fo.projectCode.errors.required">code est obligatoire</div>
+  <div *ngIf= "fo.projectCode.errors.minlenght">code (min) 2 caractères</div>
+</div>
+</div>
+
+
+
+<div class="form-group">
+  <label>Nom du Project</label>
+  <input type="text" formControlName="projectName" class="form-control" [ngClass]="{ 'is-invalid' :fo.projectName.errors}"/>
+  <div *ngIf= "fo.projectName.errors" class="invalid-feedback">
+  <div *ngIf= "fo.projectName.errors.required">nom est obligatoire</div>
+  <div *ngIf= "fo.projectName.errors.minlenght">nom min 4 caracteres</div>
+</div>
+</div>
+
+
+<div class="form-group">
+  <label>user</label>
+  <select  formControlName="managerId" class="form-control" [ngClass]="{'is-invalid' :fo.projectCode.errors}">
+<option *ngFor="let val of managerOptions" [value]="val.id">{{val.nameSurname}}</option>
+  </select>
+  <div *ngIf= "fo.managerId.errors" class="invalid-feedback">
+  <div *ngIf= "fo.managerId.errors.required"> obligatoire</div>
+</div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-light" (click)="closeAndResetModel()">Fermer</button>
+    <button class="btn btn-primary" >Enregistrer</button>
+</div>
+
+    </form>
+
+  </div>
+</ng-template>
+ </div>
+ 

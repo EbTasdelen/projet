@@ -18,7 +18,7 @@ public class JwtTokenUtil {
 
 
     public static final long ACCESS_TOKEN_VALIDITY_SECONDS = 24 * 60 * 60 * 1000;
-    public static final String SIGNING_KEY = "temelt";
+    public static final String SIGNING_KEY = "isika";
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
@@ -56,7 +56,7 @@ public class JwtTokenUtil {
 
         return Jwts.builder()
                 .setClaims(claims)
-                .setIssuer("http://temelt.com")
+                .setIssuer("http://isika.com")
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY_SECONDS))
                 .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)

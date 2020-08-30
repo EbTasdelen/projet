@@ -1,6 +1,10 @@
 package com.isika.al5.projet.service.dto;
 
 
+import javax.validation.constraints.NotEmpty;
+
+import com.isika.al5.projet.service.entity.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -9,10 +13,15 @@ import lombok.NoArgsConstructor;
 
 public class UserDto {
     private Long id;
+    @NotEmpty
     private String username;
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String surname;
+    @NotEmpty
     private String email;
+    private Role role;
   
 	public Long getId() {
 		return id;
@@ -43,6 +52,12 @@ public class UserDto {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
   

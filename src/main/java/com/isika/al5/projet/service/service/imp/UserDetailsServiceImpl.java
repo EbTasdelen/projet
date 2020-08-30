@@ -13,7 +13,7 @@ import com.isika.al5.projet.service.repository.UserRepository;
 
 
 
-
+// permet de retrouver l'utilisateur 
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService{
 	
@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 	        User user = userRepository.findByUsername(username);
 	        if(user == null){
-	            throw new UsernameNotFoundException("Invalid username or password.");
+	            throw new UsernameNotFoundException(" Pas de username ");
 	        }
 	        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), Arrays.asList(new SimpleGrantedAuthority("USER")));
 	    }

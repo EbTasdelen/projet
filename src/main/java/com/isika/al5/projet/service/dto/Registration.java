@@ -1,5 +1,7 @@
 package com.isika.al5.projet.service.dto;
 
+import com.isika.al5.projet.service.entity.Role;
+
 public class Registration {
 	
 	private String name;
@@ -7,6 +9,7 @@ public class Registration {
 	private String username;
 	private String password;
 	private String email;
+	private Role role= Role.ROLE_USER;
 
 
 	public String getName() {
@@ -39,6 +42,13 @@ public class Registration {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
 	
 
 }

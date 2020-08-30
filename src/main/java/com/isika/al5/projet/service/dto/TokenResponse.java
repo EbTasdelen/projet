@@ -1,5 +1,9 @@
 package com.isika.al5.projet.service.dto;
 
+import java.util.List;
+
+import com.isika.al5.projet.service.entity.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +12,8 @@ import lombok.NoArgsConstructor;
 public class TokenResponse {
 	private String username;
 	private String token;
+	private Role role; 
+	
 	
 	
 	public TokenResponse() {
@@ -30,6 +36,15 @@ public class TokenResponse {
 	public void setToken(String token) {
 		this.token = token;
 	}
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	
+	
 	
 	
 	

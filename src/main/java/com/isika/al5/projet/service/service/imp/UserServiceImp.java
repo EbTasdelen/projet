@@ -31,6 +31,7 @@ public class UserServiceImp implements UserService {
 		this.userRepository=userRepository;
 		this.modelMapper=modelMapper;	
 		this.bCryptPasswordEncoder= bCryptPasswordEncoder;
+		
 	}
 
 	@Override
@@ -40,6 +41,7 @@ public class UserServiceImp implements UserService {
     userDto.setId(user.getId());
 	return userDto;
 	}
+	
 	
 
 	@Override
@@ -71,6 +73,7 @@ public class UserServiceImp implements UserService {
 		user.setUsername(registration.getUsername());
 		user.setPassword(bCryptPasswordEncoder.encode(registration.getPassword()));
 		user.setEmail(registration.getEmail());
+		user.setRole(registration.getRole());
 		userRepository.save(user);
 		return Boolean.TRUE;
 		}catch (Exception e) {
