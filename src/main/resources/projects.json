@@ -6,7 +6,18 @@
     "name": "user",
     "surname": "user",
     "email": "test@test.fr",
-    "password":"user" 
+    "password":"user",
+    "role": "ROLE_USER"
+},
+
+{
+    "_class": "com.isika.al5.projet.service.entity.User",
+    "username": "testAdmin",
+    "name": "admin",
+    "surname": "admin",
+    "email": "test@test.fr",
+    "password":"admin",
+    "role": "ROLE_ADMIN"
 }
 
 ]

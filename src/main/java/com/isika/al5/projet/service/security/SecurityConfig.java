@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
        auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
-       //auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+     //  auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ROLE_ADMIN");
        
    }
 
@@ -59,7 +59,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().// ne pas utiliser le jeton d'authetification (session id) 
                 authorizeRequests()
                 // mettre la page visiteur /product
-                .antMatchers("/api/token/register", "/api/token").permitAll()
+                .antMatchers("/api/token/register", "/api/token", "/api/users/**").permitAll()
+                //.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                //.antMatchers("/users/**").hasAuthority("ROLE_USER")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

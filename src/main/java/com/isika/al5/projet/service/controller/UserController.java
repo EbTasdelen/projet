@@ -4,17 +4,20 @@ package com.isika.al5.projet.service.controller;
 
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpSession;
+import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.isika.al5.projet.service.dto.UserDto;
@@ -39,22 +42,31 @@ public class UserController {
        UserDto user = userServiceImp.getById(id);
         return ResponseEntity.ok(user);
     }
-
     
-   /* @GetMapping("/users")
-    public Map<String, Object> getUsers(HttpSession httpSession){
-	   SecurityContext securityContext= (SecurityContext)httpSession.getAttribute("SPRING_SECURITY_CONTEXT");
-	   String username=securityContext.getAuthentication().getName();
-	   List<String> roles= new ArrayList<>();
-	   for(GrantedAuthority ga:securityContext.getAuthentication().getAuthorities()) {// return une collection 
-	   roles.add(ga.getAuthority());
+    @PostMapping
+    public ResponseEntity<UserDto> createProject(@Valid @RequestBody UserDto user) {
+        return ResponseEntity.ok(userServiceImp.save(user));
+    }
+    
+   
+   @Secured(value="ROLE_ADMIN")
+   @GetMapping()
+   public ResponseEntity<List<UserDto>> getAll() {
+       List<UserDto> users = userServiceImp.getAll();
+       return ResponseEntity.ok(users);
    }
-       Map<String,Object> params=new HashMap<>();
-	   params.put("username",username);
-       params.put("roles",roles);
-       return params;
-}*/
-}
+   @PutMapping("/{id}")
+   public ResponseEntity<UserDto> updateProject(@PathVariable(value = "id", required = true) Long id, @Valid @RequestBody UserDto userDto) {
+       return ResponseEntity.ok(userServiceImp.update(id, userDto));
+   }
+   
+  
+   @DeleteMapping("/{id}")
+   public ResponseEntity<Boolean> delete(@PathVariable(value = "id", required = true) Long id) {
+       return ResponseEntity.ok(userServiceImp.delete(id));
+   }
+   }
+
 	   
    
    

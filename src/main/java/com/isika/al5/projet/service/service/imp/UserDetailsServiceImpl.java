@@ -30,7 +30,9 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	            throw new UsernameNotFoundException(" Pas de username ");
 	        }
 	        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), Arrays.asList(new SimpleGrantedAuthority("USER")));
-	    }
+	
+	 
+	 }
 }
 	 
 

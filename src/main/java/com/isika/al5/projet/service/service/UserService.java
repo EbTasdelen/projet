@@ -10,5 +10,7 @@ public interface UserService {
 	UserDto getByUsername(String username);
 	UserDto save(UserDto person);
 	List<UserDto> getAll();
+	Boolean delete(Long id);
+	UserDto update(Long id, UserDto userDto);
 
 }

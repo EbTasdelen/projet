@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -62,8 +63,29 @@ public class UserServiceImp implements UserService {
 	        List<User> data = userRepository.findAll();
 	        return  Arrays.asList(modelMapper.map(data, UserDto[].class));
 	    }
+	 @Override
+	 public Boolean delete(Long id) {
+			userRepository.deleteById(id);
+			return true;
+		}
 	 
 	 
+	 @Override
+	    public UserDto update(Long id, UserDto userDto) {
+	        User userDb = userRepository.getOne(id);
+	        userDb.setEmail(userDto.getEmail());
+	        userDb.setUsername(userDto.getEmail());
+	        userDb.setName(userDto.getName());
+	        userDb.setSurname(userDto.getSurname());
+	        
+	       /* if (userDb == null)
+	            throw new IllegalArgumentException("ID inexistant:" + id);
+	        else {*/
+	        userRepository.save(userDb);
+	        return modelMapper.map(userDb, UserDto.class);
+	        }
+	    
+
 	 @Transactional
 	public Boolean register(Registration registration) {
 		try {
@@ -81,4 +103,10 @@ public class UserServiceImp implements UserService {
 			return Boolean.FALSE; 
 		   }
 	 }
+
+	
+
+	
+
+	
 }
