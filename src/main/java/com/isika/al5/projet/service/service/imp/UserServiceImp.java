@@ -3,19 +3,19 @@ package com.isika.al5.projet.service.service.imp;
 
 import java.util.Arrays;
 import java.util.List;
-
+import org.springframework.data.domain.Pageable;
 import javax.transaction.Transactional;
-import javax.validation.Valid;
-
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.isika.al5.projet.service.dto.UserDto;
 import com.isika.al5.projet.service.dto.Registration;
 import com.isika.al5.projet.service.entity.User;
 import com.isika.al5.projet.service.service.UserService;
+import com.isika.al5.projet.service.util.Pages;
 import com.isika.al5.projet.service.repository.UserRepository;
 
 @Service
@@ -84,8 +84,17 @@ public class UserServiceImp implements UserService {
 	        userRepository.save(userDb);
 	        return modelMapper.map(userDb, UserDto.class);
 	        }
-	    
-
+	 
+	  
+       @Override
+		public Pages<UserDto> getAllPageable(Pageable pageable) {
+    	Page<User> page = userRepository.findAll(pageable);
+    	Pages<UserDto> response = new Pages<UserDto>();
+	    response.setStat(page, Arrays.asList(modelMapper.map(page.getContent(), UserDto[].class)));
+	    return response;
+		}
+       
+       
 	 @Transactional
 	public Boolean register(Registration registration) {
 		try {
@@ -105,7 +114,6 @@ public class UserServiceImp implements UserService {
 	 }
 
 	
-
 	
 
 	
